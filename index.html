@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10151c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Einteilung">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAEhUlEQVR4Xu3czU0cQRCG4cFyAFyQLxw5kAdJEIWF5JsD8M0SchQkQR4cSIAsfGhptWK2Z6meqq6ffZ+7zXTNN1/Pzg5cXd/cLsAp3xgLeggHCAfkaA7QHJCjOUBzQI7mAM0BOZoDNAfkaA7QHJCjOUBzQI7mAM0Bue/yf6Lg/uVd4X+5MG+Pd5NXfDXzNUEyoWJaSmaEg0wYsU6JbTiIxQR2ETH8tEIy5rCbs1VznD3ij6eHObOr4cfz6/ZCLPpDPxzbsSATO22nRDciyuHoJYNMqOulRDEfmvccJGOm3vV2dkP/OrXmOHlMFMYEJytEpT80m+MTkjGH3Zx1wrGuDbsjxtp62iqbi0I4SEYEFvnYGw6SEYd6PvaGA4XtCge1EY1ueewKBx9PAlL8KKAZDhQzHg6VD0uYYPhMjYeDPSUsrZ1FLRyoZzAcw00FF2PnazAc7CnBqewsOuFASYQDXYQDhANyNAdoDsjRHOjy+S37k87+3s7lUHlKsV+IcBCLT9pA3CPiv62QjB73yTiHw339wfnOxzMcvivPwnFKnuFAcG7hcLwg0vGalVs4EB/hQBfhAOGAnFtzuD/+S8RrVm7hQHye4fC6IHJxnJJnOCJ8txScYzKWxTsc5GODbzKWJcZX9m0KXs8BA3KPRRPifY4myERw4HzPgcgIB7oIBwgH5GgO0ByQozlAc0CO5gDNATmaAzQH5GgO0ByQozlAc0Au0Ms+P3/9lh+/p39//3j+eHshwpEuFk077MIR8b/nSJqMg+zHv8E5HDUmW2MVa57hqDTTSms58AwHgnMLR71Lrd6K3MKB+AgHuggHCAfk3Jqj3oPFeityCwfi8wxHpUut0lqiPASrMdMaq4j1+LzJPtnsx78hxFf2bb7pnjAWjkUTIhw1KqQezxtSBEc40EU4QDggR3OA5oAczQGaA3I0B2gOyNEcoDkgR3OA5oAczQGaA3KBXvZJ9yaYVLo3x0KEo3wsmnR/Ccj/nuNCknGQaL3O4Ug0KUVZVu0ZjiwzspBi7Z7hQHBu4Uhx6ZiKPwG3cCA+wgGekEKO5kC85kj3LFld/AnQHIjXHAX+Msce8WtjWbybI8WM1GVZtf+2kmVSWhKtN8RX9kn/so9Uolg0IcLRpJtdef7bCsIiHAj5URbB0RygOSBHc4DmgJxOc/x4fpX/aBhSOSOD4Xh7vDNcGbSNna/BcOASqIVDpcegQutcjIdjrKkw3/CZGg8HytMMh1abYQ/Fs7ArHOu+UjwyDFjPf3hP8X9NEJHtao5loTwC0a0NneZgc4lAPRk64aA/3FkkQy0cJ3FzOofdnK+ub2611nD/8n7yv/p4etD6ETjWi8WeTyjH9t6QHusdk120L5l1MpZFtTmaXn80tMhO21eaVmc0mtvKse2IkBKps+2rGwvbcJytECiySIbtpxWjI8YndnO22lZEWwzG2MXCfFtZO3sjgq+wzsTBjOYgJSqmZcI5HEhB8yEYiiEc6CIcIByQozlAc0CO5gDNATmaAzQH5GgO0ByQozlAc0CO5gDNAbn/jVYeeHz3dOgAAAAASUVORK5CYII=">
+<title>Einteilung Eingabe</title>
+<style>
+  :root{ --bg:#10151c; --panel:#212d3b; --tile:#182130; --line:#2b3645; --frame:#3b4c63;
+         --text:#f1f5f9; --muted:#8fa0b5; --accent:#38bdf8; --warn:#f59e0b; --err:#f87171; --ok:#4ade80; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 "Segoe UI",system-ui,Arial,sans-serif;padding-bottom:calc(86px + env(safe-area-inset-bottom))}
+  header{padding:14px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:5}
+  header h1{margin:0;font-size:19px}
+  #conn{font-size:13px;color:var(--muted);margin-top:2px}
+  main{max-width:1100px;margin:0 auto;padding:12px 12px 0}
+  .card{background:var(--panel);border:1px solid var(--frame);border-radius:12px;padding:12px;margin-bottom:12px}
+  .card > h2{margin:0 0 8px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  button,select,textarea{font:inherit;color:var(--text)}
+  button{background:#2b3b50;border:1px solid var(--frame);border-radius:9px;padding:10px 14px;min-height:44px;cursor:pointer}
+  button.primary{background:var(--accent);color:#04202e;border:0;font-weight:700}
+  button.warn{background:var(--warn);color:#000;border:0;font-weight:700}
+  button:disabled{opacity:.45}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .fileBtn{display:inline-flex;align-items:center;background:#2b3b50;border:1px solid var(--frame);border-radius:9px;padding:10px 14px;min-height:44px;cursor:pointer}
+  .fileBtn input{display:none}
+  input{background:var(--tile);border:1px solid var(--frame);border-radius:9px;padding:10px;min-height:44px;flex:1 1 180px;min-width:0;color:var(--text);font:inherit}
+  code{background:#0c1118;padding:1px 5px;border-radius:5px}
+  select{background:var(--tile);border:1px solid var(--frame);border-radius:9px;padding:10px;min-height:44px;flex:1 1 180px;min-width:0}
+  .hint{font-size:13px;color:var(--muted);margin-top:8px}
+  .hint.err{color:var(--err)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+  .grp .slot{background:var(--tile);border:1px solid var(--line);border-radius:10px;padding:8px;margin-top:8px}
+  .slot .lbl{font-size:13px;color:var(--muted);margin-bottom:4px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .chip{display:inline-flex;align-items:center;gap:6px;background:#2b3b50;border:1px solid var(--frame);border-radius:999px;padding:6px 6px 6px 12px;font-weight:600}
+  .chip button{min-height:30px;width:30px;padding:0;border-radius:50%;background:#3a4c64;border:0;line-height:1}
+  .add{border-style:dashed;background:transparent;color:var(--accent)}
+  textarea{width:100%;min-height:110px;background:var(--tile);border:1px solid var(--frame);border-radius:9px;padding:10px;resize:vertical}
+  .bar{position:fixed;left:0;right:0;bottom:0;background:#0c1118;border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;align-items:center;z-index:6}
+  .bar #saveinfo{flex:1;font-size:13px;color:var(--muted);min-width:0}
+  .bar #saveinfo.dirty{color:var(--warn)}
+  .bar #saveinfo.ok{color:var(--ok)}
+  #overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:10;align-items:flex-end;justify-content:center}
+  #overlay.on{display:flex}
+  #sheet{background:var(--panel);border:1px solid var(--frame);border-radius:16px 16px 0 0;width:100%;max-width:560px;max-height:82vh;display:flex;flex-direction:column}
+  #sheet .head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line);font-weight:700}
+  #sheet .list{overflow:auto;padding:6px 8px calc(10px + env(safe-area-inset-bottom))}
+  .item{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:12px 8px;min-height:50px}
+  .item .tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .tag{font-size:12px;border-radius:6px;padding:2px 7px;background:#2b3b50;color:var(--muted)}
+  .tag.warn{background:#4a3408;color:var(--warn)} .tag.abw{background:#4a1d1d;color:#fca5a5} .tag.in{background:#1d3b50;color:#7dd3fc}
+  #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom));background:#0c1118;border:1px solid var(--frame);border-radius:10px;padding:10px 14px;z-index:12;display:none;max-width:90vw}
+  .ov{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:11;align-items:center;justify-content:center;padding:12px}
+  .ov.on{display:flex}
+  .dlgbox{background:var(--panel);border:1px solid var(--frame);border-radius:14px;width:100%;max-width:600px;max-height:86vh;display:flex;flex-direction:column}
+  .dlgbox .head{padding:14px;border-bottom:1px solid var(--line);font-weight:700}
+  .dlgbody{padding:12px 14px;overflow:auto;white-space:pre-wrap;font-size:14px}
+</style>
+</head>
+<body>
+<header><h1>Einteilung – Eingabe</h1><div id="conn">Noch keine Verbindung.</div><button id="reconnect" class="warn" hidden style="margin-top:8px"></button></header>
+<main>
+  <section class="card" id="bueroCard">
+    <h2>Büro: Dienstliste → Infoboard</h2>
+    <div class="row">
+      <label class="fileBtn">Dienstliste laden<input type="file" id="xfile" accept=".xlsx,.xlsm"></label>
+      <button id="diffBtn">Unterschiede anzeigen</button>
+      <button id="publish" class="primary">Veröffentlichen</button>
+    </div>
+    <div class="hint" id="dlinfo">Nur im Büro nötig (am Handy überspringen): Dienstliste vom Laufwerk auswählen, dann „Veröffentlichen“. Es werden nur Einteilung, Aufsicht, Zimmerdienst und die Namensliste der nächsten Schichttage übertragen – nichts anderes aus der Dienstliste.</div>
+  </section>
+
+  <section class="card" id="mscard">
+    <h2>Verbindung zu OneDrive</h2>
+    <div class="row"><input id="msId" placeholder="Anwendungs-(Client-)ID aus Azure" autocomplete="off" autocapitalize="off" spellcheck="false"><input id="msOrdner" placeholder="OneDrive-Ordner, z. B. Infoboard" autocomplete="off"></div>
+    <div class="row" style="margin-top:8px"><button id="msConnect" class="primary">Mit Microsoft verbinden</button><button id="msOff">Abmelden</button></div>
+    <div class="row" style="margin-top:8px"><button id="connect">Ordner verbinden (PC mit OneDrive-App)</button><label class="fileBtn">Datendatei laden<input type="file" id="jfile" accept=".js,.json,.txt"></label></div>
+    <div class="hint err" id="msWarn" hidden>Hinweis: Diese Seite ist gerade nicht über https:// geöffnet – die Microsoft-Anmeldung geht erst, wenn sie online veröffentlicht ist.</div>
+    <details style="margin-top:10px"><summary style="cursor:pointer;color:var(--accent)">Einrichtung (einmalig, ca. 15 Minuten)</summary>
+      <ol class="hint" style="padding-left:20px">
+        <li><b>Seite veröffentlichen:</b> Diese Datei als <code>index.html</code> auf einer kostenlosen https-Seite ablegen (z. B. GitHub Pages oder Netlify). Die Adresse brauchst du gleich. Die Seite enthält keine Daten.</li>
+        <li><b>App bei Microsoft anmelden:</b> portal.azure.com → „Microsoft Entra ID“ → „App-Registrierungen“ → „Neue Registrierung“. Kontotypen: „Beliebiges Organisationsverzeichnis und persönliche Microsoft-Konten“. Umleitungs-URI: Plattform „Single-Page-Anwendung (SPA)“, Wert = exakt die Adresse aus Schritt 1.</li>
+        <li>Die <b>Anwendungs-(Client-)ID</b> oben eintragen, dazu den Namen des OneDrive-Ordners (dort liegt <code>infoboard-daten.js</code>).</li>
+        <li><b>„Mit Microsoft verbinden“</b> tippen, anmelden, „Dateien lesen und schreiben“ zustimmen.</li>
+        <li><b>iPhone/Tablet:</b> Seite in Safari öffnen → Teilen-Symbol → „Zum Home-Bildschirm“.</li>
+        <li>Die Anmeldung gilt ca. 24 Stunden; danach einmal „Bei Microsoft anmelden“ tippen.</li>
+      </ol></details>
+  </section>
+
+  <section class="card" id="tagcard" hidden>
+    <h2>Schichttag</h2>
+    <div class="row"><button id="prev" aria-label="Voriger Tag">◀</button><select id="day"></select><button id="next" aria-label="Nächster Tag">▶</button></div>
+    <div class="hint" id="taghinweis"></div>
+  </section>
+
+  <div id="karten" class="grid"></div>
+
+  <section class="card" id="offencard" hidden><h2>Ohne Funktion an diesem Tag</h2><div id="offen" class="chips"></div></section>
+
+  <section class="card" id="termincard" hidden>
+    <h2>Termine &amp; Besonderheiten</h2>
+    <textarea id="termine" placeholder="z. B. 09:00 Fahrzeugprüfung HLF&#10;14:00 Unterweisung"></textarea>
+  </section>
+</main>
+
+<div class="bar">
+  <span id="saveinfo">Keine Änderungen.</span>
+  <button id="revert" title="Änderungen an diesem Tag verwerfen">Zurück</button>
+  <button id="share" title="Datendatei zum Ablegen in OneDrive teilen oder herunterladen">Datei</button>
+  <button id="save" class="primary" disabled>Speichern</button>
+</div>
+<div id="overlay"><div id="sheet"><div class="head"><span id="sheetTitle"></span><button id="sheetClose">Schließen</button></div><div class="list" id="sheetList"></div></div></div>
+<div id="dlgOverlay" class="ov"><div class="dlgbox"><div class="head" id="dlgTitle"></div><div class="dlgbody" id="dlgBody"></div><div class="row" id="dlgBtns" style="padding:10px 12px calc(10px + env(safe-area-inset-bottom))"></div></div></div>
+<div id="toast"></div>
+
+<script>
+"use strict";
+/* ================= Gemeinsamer Code (Board + Eingabeseite) ================= */
+const FUNKTIONEN = ["ZF","EF-HLF","EF-DLK","EF-Klaf","MA-HLF","MA-DLK","MA-Klaf","MA-KdoW","AT","ST","WT","WZ","ZBV"];
+const SCHICHTWECHSEL = "07:30";                 // ab dieser Uhrzeit gilt der neue Schichttag (bitte prüfen!)
+const DATEN_DATEI = "infoboard-daten.js";       // einzige Datei, die das Board liest (liegt im OneDrive-Ordner)
+const PUBLISH_TAGE = 14;                        // so viele Kalendertage ab heute werden veröffentlicht
+const DIENSTLISTE_MUSTER = /dienstliste/i;      // Dateiname der Dienstliste muss das enthalten
+const FENSTER_TAGE_ZURUECK = 14, FENSTER_TAGE_VOR = 120;
+const WTAGE = ["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"];
+
+const pad = n => String(n).padStart(2,"0");
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const fmtDate = s => { const [y,m,d] = s.split("-").map(Number); return `${WTAGE[new Date(y,m-1,d).getDay()]}, ${pad(d)}.${pad(m)}.${y}`; };
+const fmtStamp = d => `${pad(d.getDate())}.${pad(d.getMonth()+1)}.${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())} Uhr`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store = {
+  get(k,def){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; }catch(e){ return def; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+function schichttagVon(now){
+  const [h,m] = SCHICHTWECHSEL.split(":").map(Number);
+  return iso(new Date(now.getTime() - (h*60+m)*60000));
+}
+
+/* ---------- Excel (.xlsx) ohne Zusatzbibliothek lesen ---------- */
+async function inflateRaw(u8){
+  const ds = new DecompressionStream("deflate-raw");
+  return new Uint8Array(await new Response(new Blob([u8]).stream().pipeThrough(ds)).arrayBuffer());
+}
+async function unzip(buf){
+  const u8 = new Uint8Array(buf), dv = new DataView(buf), dec = new TextDecoder();
+  let e = u8.length - 22; while(e >= 0 && dv.getUint32(e,true) !== 0x06054b50) e--;
+  if(e < 0) throw new Error("Keine gültige Excel-Datei (.xlsx).");
+  const n = dv.getUint16(e+10,true); let p = dv.getUint32(e+16,true); const files = {};
+  for(let i=0;i<n;i++){
+    if(dv.getUint32(p,true) !== 0x02014b50) break;
+    const method = dv.getUint16(p+10,true), csize = dv.getUint32(p+20,true), nl = dv.getUint16(p+28,true),
+          el = dv.getUint16(p+30,true), cl = dv.getUint16(p+32,true), lo = dv.getUint32(p+42,true);
+    files[dec.decode(u8.subarray(p+46,p+46+nl))] = {method, csize, lo}; p += 46+nl+el+cl;
+  }
+  return async name => {
+    const f = files[name]; if(!f) return null;
+    const start = f.lo + 30 + dv.getUint16(f.lo+26,true) + dv.getUint16(f.lo+28,true);
+    const data = u8.subarray(start, start+f.csize);
+    return dec.decode(f.method === 8 ? await inflateRaw(data) : data);
+  };
+}
+function colIdx(ref){ let n=0; for(const ch of /^[A-Z]+/.exec(ref)[0]) n = n*26 + ch.charCodeAt(0) - 64; return n-1; }
+async function readXlsx(buf){
+  const read = await unzip(buf), parser = new DOMParser(), xml = s => parser.parseFromString(s,"application/xml");
+  const wbTxt = await read("xl/workbook.xml"); if(!wbTxt) throw new Error("Keine gültige Excel-Datei (.xlsx).");
+  const wb = xml(wbTxt), rels = xml(await read("xl/_rels/workbook.xml.rels")), relMap = {};
+  for(const r of rels.getElementsByTagName("Relationship")) relMap[r.getAttribute("Id")] = r.getAttribute("Target");
+  let sst = null;
+  const sharedStrings = async () => {
+    if(sst) return sst; sst = []; const ssx = await read("xl/sharedStrings.xml");
+    if(ssx) for(const si of xml(ssx).getElementsByTagName("si")){
+      // Phonetik-Text (rPh) nicht mitzählen
+      let t = ""; for(const ch of si.children){ if(ch.tagName === "t") t += ch.textContent; else if(ch.tagName === "r"){ for(const x of ch.children) if(x.tagName === "t") t += x.textContent; } }
+      sst.push(t);
+    }
+    return sst;
+  };
+  const RNS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
+  const sheets = [...wb.getElementsByTagName("sheet")].map(s => {
+    const t = relMap[s.getAttributeNS(RNS,"id") || s.getAttribute("r:id")] || "";
+    return {name:s.getAttribute("name"), path: t.startsWith("/") ? t.slice(1) : "xl/"+t};
+  });
+  const aoaOf = async path => {
+    const strings = await sharedStrings(), doc = xml(await read(path)), aoa = [];
+    for(const row of doc.getElementsByTagName("row")){
+      const arr = aoa[+row.getAttribute("r")-1] = [];
+      for(const c of row.getElementsByTagName("c")){
+        const t = c.getAttribute("t"), vEl = c.getElementsByTagName("v")[0]; let v = "";
+        if(t === "inlineStr") v = [...c.getElementsByTagName("t")].map(x => x.textContent).join("");
+        else if(vEl){ v = vEl.textContent; if(t === "s") v = strings[+v] ?? ""; else if(!t || t === "n") v = v === "" ? "" : Number(v); }
+        arr[colIdx(c.getAttribute("r"))] = v;
+      }
+    }
+    return Array.from(aoa, r => r ? Array.from(r, x => x ?? "") : []);
+  };
+  return {sheets, aoaOf};
+}
+function toIsoAny(v){
+  if(typeof v === "number" && v > 20000 && v < 80000){ const d = new Date(Date.UTC(1899,11,30) + Math.floor(v)*864e5);
+    return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}`; }
+  const s = String(v||"").trim(); let m = s.match(/^(\d{1,2})\.(\d{1,2})\.(\d{2,4})/);
+  if(m){ const y = m[3].length === 2 ? "20"+m[3] : m[3]; return `${y}-${pad(+m[2])}-${pad(+m[1])}`; }
+  m = s.match(/^(\d{4})-(\d{2})-(\d{2})/); return m ? `${m[1]}-${m[2]}-${m[3]}` : "";
+}
+
+/* ---------- Dienstliste auswerten (Blätter Einteilung, Abwesenheiten, FktListen) ---------- */
+const clean = s => String(s ?? "").replace(/\s+/g," ").trim();
+async function parseDienstliste(buf, mtime){
+  const x = await readXlsx(buf), find = n => x.sheets.find(s => s.name.trim().toLowerCase() === n);
+  const sh = find("einteilung"); if(!sh) throw new Error("Blatt „Einteilung“ nicht gefunden – ist das die richtige Datei?");
+  const now = new Date(), lo = iso(new Date(now.getTime() - FENSTER_TAGE_ZURUECK*864e5)), hi = iso(new Date(now.getTime() + FENSTER_TAGE_VOR*864e5));
+  const headerRow = aoa => { for(let i=0;i<Math.min(aoa.length,20);i++) if(clean(aoa[i]?.[0]).toLowerCase() === "datum") return i; return -1; };
+
+  const aoa = await x.aoaOf(sh.path), hr = headerRow(aoa);
+  if(hr < 0) throw new Error("Kopfzeile mit „Datum“ im Blatt „Einteilung“ nicht gefunden.");
+  const h = aoa[hr].map(c => clean(c).toLowerCase());
+  const iAuf = h.indexOf("aufsicht"), iZim = h.indexOf("zimmerdienst");
+  const first = Math.max(...["+/-","aufsicht","zimmerdienst","fehler","offen","fehlt"].map(k => h.indexOf(k)), 0) + 1;
+  const mitarbeiter = [];
+  for(let c=first; c<aoa[hr].length; c++){
+    const name = clean(aoa[hr][c]); if(!name) continue;
+    const kat = clean(aoa[hr-1]?.[c]); if(/ausgeschieden/i.test(kat)) continue;
+    mitarbeiter.push({name, kategorie:kat, col:c});
+  }
+  const tage = {};
+  for(const r of aoa.slice(hr+1)){
+    const d = toIsoAny(r[0]); if(!d || d < lo || d > hi) continue;
+    const fn = {}; for(const m of mitarbeiter){ const v = clean(r[m.col]); if(FUNKTIONEN.includes(v)) (fn[v] ||= []).push(m.name); }
+    tage[d] = {fn, aufsicht: iAuf >= 0 ? clean(r[iAuf]) : "", zimmerdienst: iZim >= 0 ? clean(r[iZim]) : "", abw:{}};
+  }
+  // Abwesenheiten (Hinweis in der Eingabeseite)
+  try{
+    const ab = find("abwesenheiten");
+    if(ab){ const a2 = await x.aoaOf(ab.path), h2 = headerRow(a2);
+      if(h2 >= 0){ const cols = {}; a2[h2].forEach((c,i) => { const n = clean(c); if(n) cols[n] = i; });
+        for(const r of a2.slice(h2+1)){ const d = toIsoAny(r[0]); if(!d || !tage[d]) continue;
+          for(const m of mitarbeiter){ const i = cols[m.name]; const v = i != null ? clean(r[i]) : ""; if(v) tage[d].abw[m.name] = v; } } } }
+  }catch(e){}
+  // Berechtigungen je Funktion (Hinweis)
+  const erlaubt = {};
+  try{
+    const fk = find("fktlisten");
+    if(fk){ const a3 = await x.aoaOf(fk.path);
+      const kr = a3.findIndex(r => clean(r?.[0]).toLowerCase() === "kennung"), nr = a3.findIndex(r => clean(r?.[0]).toLowerCase() === "name");
+      if(kr >= 0 && nr >= 0) for(let c=1;c<a3[nr].length;c++){ const n = clean(a3[nr][c]); if(n) erlaubt[n] = String(a3[kr][c]||"").split("|").map(clean).filter(Boolean); } }
+  }catch(e){}
+  return {mitarbeiter: mitarbeiter.map(({name,kategorie}) => ({name,kategorie})), erlaubt, tage, mtime, erzeugt: Date.now()};
+}
+
+/* ---------- Datendatei infoboard-daten.js (Auszug für Board, Handy, Tablet) ---------- */
+// Aufbau: {version, stand, mitarbeiter:[{name,kategorie}], erlaubt:{name:[fn]}, abw:{datum:[namen]},
+//          tage:{datum:{zeit, fn:{FN:[namen]}, aufsicht, zimmerdienst, termine:{zeit,text}}}}
+const emptyData = () => ({version:2, stand:0, mitarbeiter:[], erlaubt:{}, abw:{}, tage:{}});
+const dataToText = d => "window.INFOBOARD_DATA = " + JSON.stringify(d) + ";\n";
+function parseDataText(t){
+  const i = t.indexOf("{"), j = t.lastIndexOf("}"); if(i < 0 || j < i) throw new Error("Datendatei nicht lesbar.");
+  return Object.assign(emptyData(), JSON.parse(t.slice(i, j+1)));
+}
+// Zusammenführen: je Tag gewinnt die Version mit dem neueren Zeitstempel; Termine werden getrennt verglichen.
+function mergeData(a, b){
+  a = a || emptyData(); b = b || emptyData();
+  const [older, newer] = (b.stand||0) >= (a.stand||0) ? [a,b] : [b,a], out = emptyData();
+  out.stand = newer.stand || 0;
+  out.mitarbeiter = newer.mitarbeiter?.length ? newer.mitarbeiter : older.mitarbeiter || [];
+  out.erlaubt = Object.keys(newer.erlaubt||{}).length ? newer.erlaubt : older.erlaubt || {};
+  out.abw = Object.assign({}, older.abw, newer.abw);
+  for(const d of new Set([...Object.keys(a.tage||{}), ...Object.keys(b.tage||{})])){
+    const x = a.tage?.[d], y = b.tage?.[d];
+    if(!x || !y){ out.tage[d] = x || y; continue; }
+    const w = (y.zeit||0) >= (x.zeit||0) ? y : x, tx = x.termine || {zeit:0,text:""}, ty = y.termine || {zeit:0,text:""};
+    out.tage[d] = {...w, termine: (ty.zeit||0) >= (tx.zeit||0) ? ty : tx};
+  }
+  return out;
+}
+const fmtShort = s => { const [y,m,d] = s.split("-").map(Number); return `${WTAGE[new Date(y,m-1,d).getDay()].slice(0,2)} ${pad(d)}.${pad(m)}.`; };
+function publishDates(dl){
+  const eff = schichttagVon(new Date()), hi = iso(new Date(new Date(eff+"T12:00").getTime() + PUBLISH_TAGE*864e5));
+  return Object.keys(dl.tage).filter(d => d >= eff && d <= hi).sort();
+}
+const sigNames = a => (a||[]).slice().sort().join(", ");
+function diffDays(daten, dl, dates){
+  const out = [];
+  for(const d of dates){
+    const x = daten.tage[d], y = dl.tage[d]; if(!x || !y) continue;
+    for(const f of FUNKTIONEN){ const a = sigNames(x.fn?.[f]), b = sigNames(y.fn?.[f]); if(a !== b) out.push(`${fmtShort(d)}  ${f}:  Dienstliste ${b || "–"}  ·  Infoboard ${a || "–"}`); }
+    for(const [k,l] of [["aufsicht","Aufsicht"],["zimmerdienst","Zimmerdienst"]]) if((x[k]||"") !== (y[k]||"")) out.push(`${fmtShort(d)}  ${l}:  Dienstliste ${y[k] || "–"}  ·  Infoboard ${x[k] || "–"}`);
+  }
+  return out;
+}
+function applyPublish(daten, dl, now){
+  for(const d of publishDates(dl)){
+    const y = dl.tage[d], old = daten.tage[d];
+    daten.tage[d] = {zeit: now, fn: JSON.parse(JSON.stringify(y.fn)), aufsicht: y.aufsicht, zimmerdienst: y.zimmerdienst, termine: old?.termine || {zeit:0, text:""}};
+    daten.abw[d] = Object.keys(y.abw || {});          // nur Namen, keine Abwesenheitsgründe
+  }
+  daten.mitarbeiter = dl.mitarbeiter.map(m => ({name:m.name, kategorie:m.kategorie})); daten.erlaubt = dl.erlaubt || {};
+  const lo = iso(new Date(now - 7*864e5)); for(const d of Object.keys(daten.tage)) if(d < lo){ delete daten.tage[d]; delete daten.abw[d]; }
+  daten.stand = now; return daten;
+}
+
+/* ---------- Ordnerzugriff (PC mit OneDrive-App) ---------- */
+const idb = {
+  open(){ return new Promise((res,rej) => { const q = indexedDB.open("infoboard",1); q.onupgradeneeded = () => q.result.createObjectStore("kv");
+           q.onsuccess = () => res(q.result); q.onerror = () => rej(q.error); }); },
+  async get(k){ try{ const db = await this.open(); return await new Promise(res => { const r = db.transaction("kv").objectStore("kv").get(k); r.onsuccess = () => res(r.result); r.onerror = () => res(null); }); }catch(e){ return null; } },
+  async set(k,v){ try{ const db = await this.open(); return await new Promise(res => { const t = db.transaction("kv","readwrite"); t.objectStore("kv").put(v,k); t.oncomplete = () => res(); t.onerror = () => res(); }); }catch(e){} }
+};
+async function readDataFile(dir){
+  try{ const f = await (await dir.getFileHandle(DATEN_DATEI)).getFile(); return {data: parseDataText(await f.text()), mtime: f.lastModified}; }
+  catch(e){ if(e.name === "NotFoundError") return null; throw e; }
+}
+async function writeDataFile(dir, d){
+  const w = await (await dir.getFileHandle(DATEN_DATEI, {create:true})).createWritable(); await w.write(dataToText(d)); await w.close();
+}
+
+
+/* ================= Eingabeseite ================= */
+// Karten wie auf dem Board. multi = mehrere Personen; extra = zusätzlich zur normalen Funktion (kein Verschieben).
+const KARTEN = [
+  {titel:"C-Dienst", slots:[{key:"ZF", label:"C-Dienst"}]},
+  {titel:"KdoW",     slots:[{key:"MA-KdoW", label:"MA"}]},
+  {titel:"HLF",      slots:[{key:"EF-HLF",label:"EF"},{key:"MA-HLF",label:"MA"},{key:"AT",label:"AT",multi:true},{key:"ST",label:"ST",multi:true},{key:"WT",label:"WT",multi:true}]},
+  {titel:"DLK",      slots:[{key:"EF-DLK",label:"EF"},{key:"MA-DLK",label:"MA"}]},
+  {titel:"Klaf",     slots:[{key:"EF-Klaf",label:"EF"},{key:"MA-Klaf",label:"MA"}]},
+  {titel:"Weitere",  slots:[{key:"Aufsicht",label:"Aufsicht",extra:true},{key:"Zimmerdienst",label:"Zimmerdienst",extra:true},{key:"WZ",label:"WZ"},{key:"ZBV",label:"ZBV",multi:true}]}
+];
+const SLOTS = KARTEN.flatMap(k => k.slots), slotOf = key => SLOTS.find(s => s.key === key);
+const $ = id => document.getElementById(id);
+
+let daten = Object.assign(emptyData(), store.get("eingabe_daten", {})), dl = store.get("eingabe_dl", null);
+let backend = null, lastRemote = 0, day = null, work = null, dFn = false, dTe = false, curSlot = null;
+const dirty = () => dFn || dTe;
+
+/* ---------- Anzeige ---------- */
+function toast(msg){ const t = $("toast"); t.textContent = msg; t.style.display = "block"; clearTimeout(toast.t); toast.t = setTimeout(() => t.style.display = "none", 3800); }
+function setConn(msg, err){ $("conn").textContent = msg; $("conn").style.color = err ? "var(--err)" : ""; }
+function setSaveInfo(){
+  const el = $("saveinfo"); $("save").disabled = !dirty(); $("revert").disabled = !dirty();
+  if(dirty()){ el.textContent = "Ungespeicherte Änderungen"; el.className = "dirty"; }
+  else if(!el.dataset.keep){ el.textContent = "Keine Änderungen."; el.className = ""; }
+}
+function days(){
+  const eff = schichttagVon(new Date()), lo = iso(new Date(new Date(eff+"T12:00").getTime() - 3*864e5));
+  return Object.keys(daten.tage).sort().filter(d => d >= lo);
+}
+function buildDay(date){
+  const d = daten.tage[date] || {};
+  work = {fn: JSON.parse(JSON.stringify(d.fn || {})), aufsicht: d.aufsicht || "", zimmerdienst: d.zimmerdienst || "", termine: d.termine?.text || "",
+          abw: Object.fromEntries((daten.abw[date] || []).map(n => [n, true]))};
+  dFn = dTe = false; $("saveinfo").dataset.keep = "";
+}
+function populate(keepDay){
+  const ds = days();
+  ["tagcard","offencard","termincard"].forEach(i => $(i).hidden = !ds.length);
+  if(!ds.length){ $("karten").innerHTML = ""; $("conn").textContent += " – Noch keine Daten: im Büro die Dienstliste laden und „Veröffentlichen“."; return; }
+  const eff = schichttagVon(new Date());
+  if(!keepDay || !ds.includes(day)) day = ds.includes(eff) ? eff : (ds.find(d => d > eff) || ds[0]);
+  $("day").innerHTML = ds.map(d => `<option value="${d}"${d===day?" selected":""}>${fmtDate(d)}${d===eff?" (aktuell)":""}</option>`).join("");
+  if(!dirty()) buildDay(day);
+  renderAll();
+}
+function names(key){ return key === "Aufsicht" ? (work.aufsicht ? [work.aufsicht] : []) : key === "Zimmerdienst" ? (work.zimmerdienst ? [work.zimmerdienst] : []) : (work.fn[key] || []); }
+function renderAll(){
+  $("karten").innerHTML = KARTEN.map(k => `<section class="card grp"><h2>${esc(k.titel)}</h2>${k.slots.map(s => {
+    const n = names(s.key);
+    return `<div class="slot"><div class="lbl">${esc(s.label)}</div><div class="chips">
+      ${n.map(x => `<span class="chip">${esc(x)}<button data-rm="${s.key}" data-name="${esc(x)}" aria-label="${esc(x)} entfernen">×</button></span>`).join("")}
+      ${(s.multi || !n.length) ? `<button class="add" data-add="${s.key}">+ ${s.multi ? "hinzufügen" : "auswählen"}</button>` : `<button class="add" data-add="${s.key}">ändern</button>`}
+    </div></div>`; }).join("")}</section>`).join("");
+  const eingeteilt = new Set(Object.values(work.fn).flat());
+  const offen = daten.mitarbeiter.filter(m => m.kategorie && !/extern/i.test(m.kategorie)).map(m => m.name).filter(n => !eingeteilt.has(n) && !work.abw[n]);
+  $("offen").innerHTML = offen.length ? offen.map(n => `<span class="chip" style="padding:6px 12px">${esc(n)}</span>`).join("") : `<span class="hint">Alle verfügbaren Mitarbeiter sind eingeteilt.</span>`;
+  $("termine").value = work.termine;
+  const abwN = Object.keys(work.abw);
+  $("taghinweis").textContent = abwN.length ? "Nicht verfügbar laut Dienstliste: " + abwN.join(", ") : "";
+  setSaveInfo();
+}
+
+/* ---------- Bearbeiten ---------- */
+function openSheet(key){
+  curSlot = key; const s = slotOf(key); $("sheetTitle").textContent = `${s.key === "ZF" ? "C-Dienst" : s.key} wählen`;
+  const inFn = {}; for(const [f,arr] of Object.entries(work.fn)) for(const n of arr) inFn[n] = f;
+  $("sheetList").innerHTML = daten.mitarbeiter.map(m => {
+    const tags = []; if(inFn[m.name] && !s.extra) tags.push(`<span class="tag in">${inFn[m.name]}</span>`);
+    if(work.abw[m.name]) tags.push(`<span class="tag abw">abwesend</span>`);
+    const er = daten.erlaubt[m.name]; if(!s.extra && er && er.length && !er.includes(s.key)) tags.push(`<span class="tag warn">nicht berechtigt</span>`);
+    return `<button class="item" data-pick="${esc(m.name)}"><span>${esc(m.name)}</span><span class="tags">${tags.join("")}</span></button>`; }).join("");
+  $("overlay").classList.add("on");
+}
+const closeSheet = () => $("overlay").classList.remove("on");
+function assign(key, name){
+  const s = slotOf(key);
+  if(key === "Aufsicht") work.aufsicht = name;
+  else if(key === "Zimmerdienst") work.zimmerdienst = name;
+  else {
+    for(const [f,arr] of Object.entries(work.fn)){ const i = arr.indexOf(name); if(i >= 0 && f !== key){ arr.splice(i,1); if(!arr.length) delete work.fn[f]; toast(`${name} von ${f} nach ${key} verschoben`); } }
+    if(s.multi){ const a = (work.fn[key] ||= []); if(!a.includes(name)) a.push(name); } else work.fn[key] = [name];
+  }
+  dFn = true; renderAll();
+}
+function removeName(key, name){
+  if(key === "Aufsicht") work.aufsicht = ""; else if(key === "Zimmerdienst") work.zimmerdienst = "";
+  else { work.fn[key] = (work.fn[key]||[]).filter(n => n !== name); if(!work.fn[key].length) delete work.fn[key]; }
+  dFn = true; renderAll();
+}
+$("karten").addEventListener("click", e => { const a = e.target.closest("[data-add]"), r = e.target.closest("[data-rm]"); if(a) openSheet(a.dataset.add); else if(r) removeName(r.dataset.rm, r.dataset.name); });
+$("sheetList").addEventListener("click", e => { const b = e.target.closest("[data-pick]"); if(b){ assign(curSlot, b.dataset.pick); closeSheet(); } });
+$("sheetClose").addEventListener("click", closeSheet);
+$("overlay").addEventListener("click", e => { if(e.target === $("overlay")) closeSheet(); });
+$("termine").addEventListener("input", e => { work.termine = e.target.value; dTe = true; setSaveInfo(); });
+function switchDay(d){
+  if(dirty() && !confirm("Ungespeicherte Änderungen an diesem Tag verwerfen?")){ $("day").value = day; return; }
+  dFn = dTe = false; day = d; buildDay(day); populate(true);
+}
+$("day").addEventListener("change", e => switchDay(e.target.value));
+$("prev").addEventListener("click", () => { const ds = days(), i = ds.indexOf(day); if(i > 0) switchDay(ds[i-1]); });
+$("next").addEventListener("click", () => { const ds = days(), i = ds.indexOf(day); if(i >= 0 && i < ds.length-1) switchDay(ds[i+1]); });
+$("revert").addEventListener("click", () => { if(!dirty() || !confirm("Änderungen an diesem Tag verwerfen?")) return; dFn = dTe = false; buildDay(day); renderAll(); });
+
+/* ---------- Dialog ---------- */
+function dialog(title, body, buttons){
+  $("dlgTitle").textContent = title; $("dlgBody").textContent = body; $("dlgBtns").innerHTML = "";
+  for(const b of buttons){ const el = document.createElement("button"); el.textContent = b.label; if(b.primary) el.className = "primary";
+    el.onclick = () => { $("dlgOverlay").classList.remove("on"); if(b.cb) b.cb(); }; $("dlgBtns").appendChild(el); }
+  $("dlgOverlay").classList.add("on");
+}
+
+/* ---------- Datenquellen (OneDrive per Microsoft Graph, Ordner mit OneDrive-App, oder nur lokal) ---------- */
+const folderBackend = dir => ({
+  kind:"folder", label:"Ordner",
+  async ready(gesture){ let p = await dir.queryPermission({mode:"readwrite"}); if(p !== "granted" && gesture) p = await dir.requestPermission({mode:"readwrite"}); return p === "granted"; },
+  loadData: () => readDataFile(dir),
+  saveData: d => writeDataFile(dir, d)
+});
+const MS_AUTH = "https://login.microsoftonline.com/common/oauth2/v2.0";
+const MS_SCOPE = "Files.ReadWrite offline_access";
+const msCfg = () => Object.assign({clientId:"", ordner:"Infoboard"}, store.get("ms_cfg", {}));
+const redirectUri = () => location.origin + location.pathname;
+const rnd = n => { const a = new Uint8Array(n); crypto.getRandomValues(a); return [...a].map(b => "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~"[b % 66]).join(""); };
+const b64url = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+async function msLogin(){
+  const cfg = msCfg(); if(!cfg.clientId){ setConn("Bitte zuerst die Client-ID eintragen.", true); return; }
+  const verifier = rnd(64), state = rnd(16); store.set("ms_pkce", {verifier, state});
+  const challenge = b64url(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier)));
+  location.href = `${MS_AUTH}/authorize?` + new URLSearchParams({client_id:cfg.clientId, response_type:"code", redirect_uri:redirectUri(), response_mode:"query",
+    scope:MS_SCOPE, state, code_challenge:challenge, code_challenge_method:"S256", prompt:"select_account"});
+}
+async function msTokenRequest(params){
+  const r = await fetch(`${MS_AUTH}/token`, {method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body:new URLSearchParams({client_id:msCfg().clientId, scope:MS_SCOPE, ...params})});
+  const j = await r.json(); if(!r.ok) throw new Error(j.error_description || j.error || "Anmeldung fehlgeschlagen");
+  const t = {access:j.access_token, refresh:j.refresh_token || (store.get("ms_tok",{})||{}).refresh, exp:Date.now() + (j.expires_in||3600)*1000};
+  store.set("ms_tok", t); return t;
+}
+async function msHandleRedirect(){
+  const q = new URLSearchParams(location.search); if(!q.get("code") && !q.get("error")) return;
+  const pk = store.get("ms_pkce", null); history.replaceState(null, "", location.pathname);
+  if(q.get("error")){ setConn("Microsoft-Anmeldung abgebrochen: " + (q.get("error_description") || q.get("error")), true); return; }
+  if(!pk || pk.state !== q.get("state")){ setConn("Anmeldung ungültig (state). Bitte erneut versuchen.", true); return; }
+  try{ await msTokenRequest({grant_type:"authorization_code", code:q.get("code"), redirect_uri:redirectUri(), code_verifier:pk.verifier}); store.set("ms_active", true); store.set("ms_pkce", null); }
+  catch(e){ setConn("Microsoft-Anmeldung fehlgeschlagen: " + e.message, true); }
+}
+async function msToken(){
+  const t = store.get("ms_tok", null); if(!t) return null;
+  if(t.exp > Date.now() + 60000) return t.access;
+  if(t.refresh){ try{ return (await msTokenRequest({grant_type:"refresh_token", refresh_token:t.refresh})).access; }catch(e){ return null; } }
+  return null;
+}
+async function graph(path, opts = {}){
+  const tok = await msToken(); if(!tok) throw new Error("Bei Microsoft nicht angemeldet.");
+  const r = await fetch("https://graph.microsoft.com/v1.0" + path, {...opts, headers:{Authorization:"Bearer " + tok, ...(opts.headers||{})}});
+  if(r.status === 401){ store.set("ms_tok", null); throw new Error("Anmeldung abgelaufen – bitte erneut anmelden."); }
+  return r;
+}
+const enc = p => p.split("/").filter(Boolean).map(encodeURIComponent).join("/");
+const msBackend = () => {
+  const path = () => `/me/drive/root:/${enc(msCfg().ordner)}/${encodeURIComponent(DATEN_DATEI)}`;
+  return {
+    kind:"ms", label:"OneDrive",
+    async ready(){ return !!(await msToken()); },
+    async loadData(){
+      const meta = await graph(path() + ":?$select=lastModifiedDateTime"); if(meta.status === 404) return null; if(!meta.ok) throw new Error("OneDrive: Fehler " + meta.status);
+      const mtime = Date.parse((await meta.json()).lastModifiedDateTime);
+      const c = await graph(path() + ":/content"); if(!c.ok) throw new Error("Datendatei nicht ladbar (" + c.status + ")");
+      return {data: parseDataText(await c.text()), mtime};
+    },
+    async saveData(d){
+      const r = await graph(path() + ":/content", {method:"PUT", headers:{"Content-Type":"text/plain"}, body:dataToText(d)});
+      if(!r.ok) throw new Error("OneDrive: Speichern nicht möglich (" + r.status + ")");
+    }
+  };
+};
+async function refresh(gesture){
+  if(!backend) return;
+  try{
+    if(!(await backend.ready(gesture))){
+      $("reconnect").hidden = false; $("reconnect").textContent = backend.kind === "ms" ? "Bei Microsoft anmelden" : "Verbindung aktivieren";
+      setConn(backend.kind === "ms" ? "Bitte bei Microsoft anmelden (tägliche Anmeldung)." : "Zugriff auf den Ordner muss einmal bestätigt werden.", true); return;
+    }
+    $("reconnect").hidden = true;
+    const r = await backend.loadData();
+    if(r && r.mtime !== lastRemote){ daten = mergeData(r.data, daten); store.set("eingabe_daten", daten); lastRemote = r.mtime; }
+    setConn(`Verbunden (${backend.label})` + (daten.stand ? ` – Stand ${fmtStamp(new Date(daten.stand))}` : " – noch keine Daten")); populate(true);
+  }catch(e){ setConn("Verbindung: " + e.message, true); }
+}
+// schreibt daten in die Quelle (falls verbunden); true = dort gespeichert
+async function persist(){
+  store.set("eingabe_daten", daten);
+  if(!backend) return false;
+  if(!(await backend.ready(true))) throw new Error("Kein Zugriff – bitte Verbindung aktivieren.");
+  const r = await backend.loadData(); if(r) daten = mergeData(r.data, daten);
+  await backend.saveData(daten); const chk = await backend.loadData(); lastRemote = chk ? chk.mtime : 0; store.set("eingabe_daten", daten); return true;
+}
+
+/* ---------- Speichern einer Änderung ---------- */
+function finishSave(remoteOk, extra){
+  const el = $("saveinfo"), hm = `${pad(new Date().getHours())}:${pad(new Date().getMinutes())}`; el.dataset.keep = "1"; el.className = remoteOk ? "ok" : "dirty";
+  el.textContent = remoteOk ? `Gespeichert ${hm} ✓` : `Nur lokal gespeichert ${hm} – bitte „Datei“`;
+  toast(remoteOk ? (extra || "Gespeichert. Die Anzeigen übernehmen es nach dem OneDrive-Abgleich (ca. 1 Min.).") : "Noch nicht in OneDrive: „Datei“ antippen und in den OneDrive-Ordner legen.");
+}
+async function save(){
+  const now = Date.now(), t = daten.tage[day] || {zeit:0, fn:{}, aufsicht:"", zimmerdienst:"", termine:{zeit:0,text:""}};
+  if(dFn){ t.zeit = now; t.fn = work.fn; t.aufsicht = work.aufsicht; t.zimmerdienst = work.zimmerdienst; }
+  if(dTe) t.termine = {zeit: now, text: work.termine};
+  daten.tage[day] = t; daten.stand = now;
+  let ok = false; try{ ok = await persist(); }catch(e){ setConn("Speichern fehlgeschlagen: " + e.message, true); }
+  dFn = dTe = false; buildDay(day); finishSave(ok); renderAll();
+}
+$("save").addEventListener("click", save);
+$("share").addEventListener("click", async () => {
+  const f = new File([dataToText(daten)], DATEN_DATEI, {type:"text/javascript"});
+  try{
+    if(navigator.canShare && navigator.canShare({files:[f]})) await navigator.share({files:[f], title:"Infoboard-Daten"});
+    else { const a = document.createElement("a"); a.href = URL.createObjectURL(f); a.download = DATEN_DATEI; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+           toast("Datei heruntergeladen – bitte in den OneDrive-Ordner legen und die alte ersetzen."); }
+  }catch(e){ if(e.name !== "AbortError") toast("Teilen nicht möglich: " + e.message); }
+});
+
+/* ---------- Büro: Dienstliste laden, Unterschiede, Veröffentlichen ---------- */
+function showDlInfo(){
+  if(!dl){ return; }
+  const ds = publishDates(dl);
+  $("dlinfo").textContent = `Dienstliste „${dl.name || "?"}“ (Stand ${fmtStamp(new Date(dl.mtime||dl.erzeugt))}). Veröffentlicht werden ${ds.length} Schichttage` + (ds.length ? ` (${fmtShort(ds[0])} – ${fmtShort(ds[ds.length-1])}).` : ". Keine Schichttage ab heute gefunden.");
+}
+$("xfile").addEventListener("change", async e => {
+  const f = e.target.files[0]; if(!f) return;
+  try{ dl = await parseDienstliste(await f.arrayBuffer(), f.lastModified); dl.name = f.name; store.set("eingabe_dl", dl); showDlInfo(); toast("Dienstliste gelesen."); }
+  catch(err){ $("dlinfo").textContent = err.message; $("dlinfo").className = "hint err"; }
+});
+async function syncRemote(){
+  if(!backend) return;
+  try{ if(await backend.ready(false)){ const r = await backend.loadData(); if(r){ daten = mergeData(r.data, daten); lastRemote = r.mtime; } } }catch(e){ setConn("Verbindung: " + e.message, true); }
+}
+async function publish(nurAnzeigen){
+  if(!dl){ toast("Bitte zuerst die Dienstliste laden."); return; }
+  await syncRemote();
+  const dates = publishDates(dl); if(!dates.length){ toast("Keine Schichttage ab heute in der Dienstliste."); return; }
+  const diffs = diffDays(daten, dl, dates);
+  if(nurAnzeigen){ dialog("Unterschiede zur Dienstliste", diffs.length ? diffs.join("\n") : "Keine Unterschiede: Infoboard und Dienstliste stimmen für die nächsten Schichttage überein.", [{label:"Schließen", primary:true}]); return; }
+  const go = async () => {
+    applyPublish(daten, dl, Date.now()); let ok = false;
+    try{ ok = await persist(); }catch(e){ setConn("Veröffentlichen fehlgeschlagen: " + e.message, true); }
+    dFn = dTe = false; populate(false); finishSave(ok, "Veröffentlicht. Die Anzeigen übernehmen es nach dem OneDrive-Abgleich (ca. 1 Min.).");
+  };
+  if(diffs.length) dialog("Änderungen werden überschrieben", "Auf dem Infoboard steht (z. B. durch Änderungen vom Handy) etwas anderes als in der Dienstliste:\n\n" + diffs.join("\n") + "\n\nTrage diese Änderungen bei Bedarf in die Dienstliste nach.",
+    [{label:"Abbrechen"}, {label:"Mit Dienstliste überschreiben", primary:true, cb:go}]);
+  else await go();
+}
+$("publish").addEventListener("click", () => publish(false));
+$("diffBtn").addEventListener("click", () => publish(true));
+
+/* ---------- Verbindungen einrichten ---------- */
+$("reconnect").addEventListener("click", () => backend && backend.kind === "ms" ? msLogin() : refresh(true));
+$("connect").addEventListener("click", async () => {
+  try{ const dir = await showDirectoryPicker({id:"infoboard", mode:"readwrite"}); backend = folderBackend(dir); lastRemote = 0; store.set("ms_active", false); await idb.set("dir", dir); await refresh(true); }
+  catch(e){ if(e.name !== "AbortError") setConn(e.message, true); }
+});
+$("msConnect").addEventListener("click", async () => {
+  store.set("ms_cfg", {clientId:$("msId").value.trim(), ordner:$("msOrdner").value.trim() || "Infoboard"});
+  if(location.protocol !== "https:"){ setConn("Microsoft-Anmeldung funktioniert nur, wenn diese Seite über https:// geöffnet wird (siehe Einrichtung).", true); return; }
+  await msLogin();
+});
+$("msOff").addEventListener("click", () => { store.set("ms_tok", null); store.set("ms_active", false); if(backend && backend.kind === "ms") backend = null; setConn("Von Microsoft abgemeldet."); });
+$("jfile").addEventListener("change", async e => {
+  const f = e.target.files[0]; if(!f) return;
+  try{ daten = mergeData(parseDataText(await f.text()), daten); store.set("eingabe_daten", daten); setConn("Datendatei geladen: " + f.name); populate(true); }
+  catch(err){ setConn("Datendatei nicht lesbar: " + err.message, true); }
+});
+const hasFS = "showDirectoryPicker" in window;
+if(!hasFS) $("connect").hidden = true;
+{ const c = msCfg(); $("msId").value = c.clientId; $("msOrdner").value = c.ordner; }
+$("msWarn").hidden = location.protocol === "https:";
+if(dl) showDlInfo();
+if(days().length){ setConn(`Daten aus Zwischenspeicher${daten.stand ? " (Stand " + fmtStamp(new Date(daten.stand)) + ")" : ""}.`); populate(false); }
+(async () => {
+  await msHandleRedirect();
+  if(store.get("ms_active", false) && msCfg().clientId){ backend = msBackend(); await refresh(false); }
+  else if(hasFS){ const h = await idb.get("dir"); if(h){ backend = folderBackend(h); await refresh(false); } }
+})();
+setInterval(() => { if(backend && !dirty()) refresh(false); }, 60000);
+window.addEventListener("beforeunload", e => { if(dirty()){ e.preventDefault(); e.returnValue = ""; } });
+</script>
+</body>
+</html>
